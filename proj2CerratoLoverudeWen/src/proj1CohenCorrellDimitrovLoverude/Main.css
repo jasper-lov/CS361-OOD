@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 .root{
     -fx-background-color: #3d2121;
+=======
+.root {
+    -fx-background-colr: #383838;
+>>>>>>> fa6a2ee05a54276881938a80cf24a17dce2ef770
     -fx-font-size: 10pt;
-
 }
