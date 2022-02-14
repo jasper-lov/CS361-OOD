@@ -140,6 +140,7 @@ public class Main extends Application{
     public void start(Stage primaryStage) {
         // initalize scene
         Scene scene = new Scene(new VBox(), 400, 350);
+        scene.getStylesheets().add(getClass().getResource("Main.css").toExternalForm());
         TextField myTextField = createTextField();
         ToolBar myToolBar = createToolBar(myTextField);
         Button hello = (Button) myToolBar.getItems().get(0);
