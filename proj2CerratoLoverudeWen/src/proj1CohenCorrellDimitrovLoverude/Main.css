@@ -12,9 +12,9 @@
 }
 
 #hello{
-    background-color: green;
+    background-color: "green";
 }
 
 #goodbye{
-    background-color:red;
+    background-color:"red";
 }
