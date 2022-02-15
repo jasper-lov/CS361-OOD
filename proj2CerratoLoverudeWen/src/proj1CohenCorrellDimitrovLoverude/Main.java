@@ -18,6 +18,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import java.util.Optional;
 
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.Parent;
+import javafx.fxml.FXMLLoader;
+import javafx.application.Application;
+
 public class Main extends Application{
     /**
      * Styles a Textfield for our window
@@ -43,10 +49,13 @@ public class Main extends Application{
         ToolBar toolBar = new ToolBar();
         Button hello = new Button();
         hello.setText("Hello");
+        hello.setId("hello");
+        /*
         hello.setStyle("-fx-background-color: #90EE90;"
                         + "-fx-border-radius: .25em;"
                         + "-fx-background-radius: .25em;"
                         + "-fx-border-color: #000000;");
+        */
         hello.setOnAction(new EventHandler<ActionEvent>() {
             /**
              * Opens a Dialog Box to change the button text
@@ -67,10 +76,13 @@ public class Main extends Application{
 
         Button goodbye = new Button();
         goodbye.setText("Goodbye");
+        goodbye.setId("goodbye");
+        /*
         goodbye.setStyle("-fx-background-color: #FFC0CB;"
                         + "-fx-border-radius: .25em;"
                         + "-fx-background-radius: .25em;"
                         + "-fx-border-color: #000000;");
+         */
         goodbye.setOnAction(new EventHandler<ActionEvent>() {
             /**
              * Appends "Goodbye" to textfield on click
@@ -137,21 +149,24 @@ public class Main extends Application{
      * @see        Application
     */
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
         // initalize scene
-        Scene scene = new Scene(new VBox(), 400, 350);
+        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        Scene scene = new Scene(root, 400, 350);
         scene.getStylesheets().add(getClass().getResource("Main.css").toExternalForm());
+
+
         TextField myTextField = createTextField();
         ToolBar myToolBar = createToolBar(myTextField);
         Button hello = (Button) myToolBar.getItems().get(0);
         MenuBar myMenu = createMenuBar(myTextField, hello);
-
+        /*
         // add items to "stage" and display
         ((VBox) scene.getRoot()).getChildren().addAll(myMenu);
         ((VBox) scene.getRoot()).getChildren().addAll(myToolBar);
         ((VBox) scene.getRoot()).getChildren().addAll(myTextField);
-
-        primaryStage.setTitle("EC, CC, AD, JL et al.'s Project 1");
+        */
+        primaryStage.setTitle("Project 2");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
