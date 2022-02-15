@@ -6,6 +6,11 @@
 * Date: February 9, 2022
 */
 //package proj1CohenCorrellDimitrovLoverude;
+package fxmlexample;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.text.Text;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -45,59 +50,61 @@ public class Main extends Application{
      * @param textField object to append "goodbye" onto
      * @return     a "ToolBar" object
     */
-    public ToolBar createToolBar(TextField textField) {
-        ToolBar toolBar = new ToolBar();
-        Button hello = new Button();
-        hello.setText("Hello");
-        hello.setId("hello");
+    public void setButtons(Scene scene) {
+        Button hello = (Button) scene.lookup("#hello");
         /*
         hello.setStyle("-fx-background-color: #90EE90;"
                         + "-fx-border-radius: .25em;"
                         + "-fx-background-radius: .25em;"
                         + "-fx-border-color: #000000;");
         */
-        hello.setOnAction(new EventHandler<ActionEvent>() {
-            /**
-             * Opens a Dialog Box to change the button text
-             *
-             * @author Erik Cohen, Cassidy Correll, Anton Dimitrov, Jasper Loverude
-             * @param  event event created on button press
-            */
-            @Override
-            public void handle(ActionEvent event) {
-                TextInputDialog dialog = new TextInputDialog();
-                dialog.setTitle("Give me a number");
-                dialog.setHeaderText("Give me an integer from 0 to 255:");
-                Optional<String> result = dialog.showAndWait();
-                result.ifPresent(number -> {hello.setText(number);});
-            }
-        });
-        toolBar.getItems().add(hello);
+        if (hello != null){
+            hello.setOnAction(new EventHandler<ActionEvent>() {
+                /**
+                 * Opens a Dialog Box to change the button text
+                 *
+                 * @author Erik Cohen, Cassidy Correll, Anton Dimitrov, Jasper Loverude
+                 * @param  event event created on button press
+                 */
+                @Override
+                public void handle(ActionEvent event) {
+                    TextInputDialog dialog = new TextInputDialog();
+                    dialog.setTitle("Give me a number");
+                    dialog.setHeaderText("Give me an integer from 0 to 255:");
+                    Optional<String> result = dialog.showAndWait();
+                    result.ifPresent(number -> {hello.setText(number);});
+                }
+            });
+        }
 
-        Button goodbye = new Button();
-        goodbye.setText("Goodbye");
-        goodbye.setId("goodbye");
+        //toolBar.getItems().add(hello);
+
+        Button goodbye = (Button) scene.lookup("#goodbye");
+        TextField textField = (TextField) scene.lookup("#textfield");
         /*
         goodbye.setStyle("-fx-background-color: #FFC0CB;"
                         + "-fx-border-radius: .25em;"
                         + "-fx-background-radius: .25em;"
                         + "-fx-border-color: #000000;");
          */
-        goodbye.setOnAction(new EventHandler<ActionEvent>() {
-            /**
-             * Appends "Goodbye" to textfield on click
-             *
-             * @param  event event created on button click
-             * @return      
-            */
-            @Override
-            public void handle(ActionEvent event) {
-                textField.appendText("Goodbye");
-            }
-        });//goodbye.setOnAction
-        toolBar.getItems().add(goodbye);
-        return toolBar;
+        if (goodbye != null){
+            goodbye.setOnAction(new EventHandler<ActionEvent>() {
+                /**
+                 * Appends "Goodbye" to textfield on click
+                 *
+                 * @param  event event created on button click
+                 * @return
+                 */
+                @Override
+                public void handle(ActionEvent event) {
+                    textField.appendText("Goodbye");
+                }
+            });//goodbye.setOnAction
+            //toolBar.getItems().add(goodbye);
+            //return toolBar;
+        }
     }
+
 
     /**
      * Creates a MenuBar with a File menu and clear/exit options
@@ -107,31 +114,42 @@ public class Main extends Application{
      * @param hello a button to be reset
      * @return     a "MenuBar" object
     */
-    public MenuBar createMenuBar(TextField textField, Button hello) {
-        MenuBar menuBar = new MenuBar();
-        Menu menuFile = new Menu("File");
-        menuBar.getMenus().addAll(menuFile);
-        MenuItem clear = new MenuItem("Clear");
-        clear.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-                textField.setText("Sample text");
-                hello.setText("Hello");
-            }
-        });
-        MenuItem exit = new MenuItem("Exit");
-        exit.setOnAction(new EventHandler<ActionEvent>() {
-            /**
-             * on "exit clicked" end program
-             *
-             * @author Erik Cohen, Cassidy Correll, Anton Dimitrov, Jasper Loverude
-             * @param  event event created on button press
-            */
-            public void handle(ActionEvent t) {
-                System.exit(0);
-            }
-        });
-        menuFile.getItems().addAll(clear, new SeparatorMenuItem(), exit);
-        return menuBar;
+    public void setMenuItems(Scene scene) {
+        MenuBar menuBar = (MenuBar) scene.lookup("#menubar");
+        if (menuBar != null){
+            Menu menu = menuBar.getMenus().get(0);
+
+            MenuItem reset = menu.getItems().get(0);
+            MenuItem exit = menu.getItems().get(2);
+
+            TextField textField = (TextField) scene.lookup("textfield");
+            Button hello = (Button) scene.lookup("hello");
+            //MenuBar menuBar = new MenuBar();
+            //Menu menuFile = new Menu("File");
+            //menuBar.getMenus().addAll(menuFile);
+            //MenuItem clear = new MenuItem("Clear");
+            reset.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent t) {
+                    textField.setText("Sample text");
+                    hello.setText("Hello");
+                }
+            });
+            //MenuItem exit = new MenuItem("Exit");
+            exit.setOnAction(new EventHandler<ActionEvent>() {
+                /**
+                 * on "exit clicked" end program
+                 *
+                 * @author Erik Cohen, Cassidy Correll, Anton Dimitrov, Jasper Loverude
+                 * @param  event event created on button press
+                 */
+                public void handle(ActionEvent t) {
+                    System.exit(0);
+                }
+            });
+            //reset.add(new SeparatorMenuItem());
+            //return menuBar;
+        }
+
     }
 
     /**
@@ -154,18 +172,20 @@ public class Main extends Application{
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         Scene scene = new Scene(root, 400, 350);
         scene.getStylesheets().add(getClass().getResource("Main.css").toExternalForm());
-
-
+        /*
         TextField myTextField = createTextField();
         ToolBar myToolBar = createToolBar(myTextField);
         Button hello = (Button) myToolBar.getItems().get(0);
         MenuBar myMenu = createMenuBar(myTextField, hello);
-        /*
+
         // add items to "stage" and display
         ((VBox) scene.getRoot()).getChildren().addAll(myMenu);
         ((VBox) scene.getRoot()).getChildren().addAll(myToolBar);
         ((VBox) scene.getRoot()).getChildren().addAll(myTextField);
         */
+        setButtons(scene);
+        setMenuItems(scene);
+
         primaryStage.setTitle("Project 2");
         primaryStage.setScene(scene);
         primaryStage.show();
