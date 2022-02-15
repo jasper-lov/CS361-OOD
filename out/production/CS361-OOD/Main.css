@@ -1,0 +1,23 @@
+<<<<<<< HEAD
+.root{
+    -fx-background-color: #3d2121;
+=======
+.root {
+    -fx-background-colr: #383838;
+>>>>>>> fa6a2ee05a54276881938a80cf24a17dce2ef770
+    -fx-font-size: 10pt;
+}
+
+#hello {
+    -fx-background-color: #90EE90;
+    -fx-border-radius: .25em;
+    -fx-background-radius: .25em;
+    -fx-border-color: #000000;
+}
+
+#goodbye {
+    -fx-background-color: #FFC0CB;
+    -fx-border-radius: .25em;
+    -fx-background-radius: .25em;
+    -fx-border-color: #000000;
+}
